@@ -67,7 +67,7 @@ if text:
     sentiment_p = [Negative_sentiment, Neutral_sentiment, Positive_sentiment]
 
     plt.bar(sentiment_score, sentiment_p)
-    plt.title('Sentiment Towards SDG in Japan from a news Article')
+    plt.title('Sentiment of the text')
     plt.xlabel('Type of Sentiment')
     plt.ylabel('Sentiment Probability')
     st.pyplot(plt.gcf())
