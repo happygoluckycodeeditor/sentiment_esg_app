@@ -11,8 +11,15 @@ This is my text analysis and sentiment app
 
 #LoadingModel For analysis            
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
-model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+
+#Added Caching
+@st.cache_resource
+def load_model():
+    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+    model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+    return tokenizer, model
+
+tokenizer, model = load_model()
 
 #Adding text files
 st.write('Enter the text you want to analyse in the text box:')
