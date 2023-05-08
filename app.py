@@ -25,62 +25,64 @@ tokenizer, model = load_model()
 st.write('Enter the text you want to analyse in the text box:')
 
 text = st.text_area('Text for analysis:')
+submit_button = st.button('Submit')
 
 st.write('The text you have written is:', text )
 
-if text:
-    #Run on ROBERTA
-    encoded_text = tokenizer(text, return_tensors='pt')
-    output = model(**encoded_text)
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
+if submit_button:
+    if text:
+        #Run on ROBERTA
+        encoded_text = tokenizer(text, return_tensors='pt')
+        output = model(**encoded_text)
+        scores = output[0][0].detach().numpy()
+        scores = softmax(scores)
 
-    scores_dict = {
-        'Negative' : scores[0],
-        'Neutral' : scores[1],
-        'Positive' : scores[2]
-    }
+        scores_dict = {
+            'Negative' : scores[0],
+            'Neutral' : scores[1],
+            'Positive' : scores[2]
+        }
 
-    Negative_sentiment = scores_dict['Negative']
-    Neutral_sentiment = scores_dict['Neutral']
-    Positive_sentiment = scores_dict['Positive']
+        Negative_sentiment = scores_dict['Negative']
+        Neutral_sentiment = scores_dict['Neutral']
+        Positive_sentiment = scores_dict['Positive']
 
-    st.write('The probability scores are:')
-    st.write('The Negative sentiment is:', scores_dict['Negative'])
-    st.write('The Positive sentiment is:', scores_dict['Positive'])
-    st.write('The Neutral sentiment is:', scores_dict['Neutral'])
-else:
-    st.write('No Text Composed')
+        st.write('The probability scores are:')
+        st.write('The Negative sentiment is:', scores_dict['Negative'])
+        st.write('The Positive sentiment is:', scores_dict['Positive'])
+        st.write('The Neutral sentiment is:', scores_dict['Neutral'])
+    else:
+        st.write('No Text Composed')
 
-st.header('Sentiment of your text on a graph:')
-if text:
-    #Run on ROBERTA
-    encoded_text = tokenizer(text, return_tensors='pt')
-    output = model(**encoded_text)
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
+    st.header('Sentiment of your text on a graph:')
+    if text:
+        #Run on ROBERTA
+        encoded_text = tokenizer(text, return_tensors='pt')
+        output = model(**encoded_text)
+        scores = output[0][0].detach().numpy()
+        scores = softmax(scores)
 
-    scores_dict = {
-        'Negative' : scores[0],
-        'Neutral' : scores[1],
-        'Positive' : scores[2]
-    }
+        scores_dict = {
+            'Negative' : scores[0],
+            'Neutral' : scores[1],
+            'Positive' : scores[2]
+        }
 
-    Negative_sentiment = scores_dict['Negative']
-    Neutral_sentiment = scores_dict['Neutral']
-    Positive_sentiment = scores_dict['Positive']
+        Negative_sentiment = scores_dict['Negative']
+        Neutral_sentiment = scores_dict['Neutral']
+        Positive_sentiment = scores_dict['Positive']
 
-    sentiment_score = ['Negative Sentiment', 'Neutral Sentiment', 'Positive Sentiment']
-    sentiment_p = [Negative_sentiment, Neutral_sentiment, Positive_sentiment]
+        sentiment_score = ['Negative Sentiment', 'Neutral Sentiment', 'Positive Sentiment']
+        sentiment_p = [Negative_sentiment, Neutral_sentiment, Positive_sentiment]
 
-    plt.bar(sentiment_score, sentiment_p)
-    plt.title('Sentiment of the text')
-    plt.xlabel('Type of Sentiment')
-    plt.ylabel('Sentiment Probability')
-    st.pyplot(plt.gcf())
-    
-else:
-    st.write('No text Composed')
+        plt.bar(sentiment_score, sentiment_p)
+        plt.title('Sentiment of the text')
+        plt.xlabel('Type of Sentiment')
+        plt.ylabel('Sentiment Probability')
+        st.pyplot(plt.gcf())
+        
+    else:
+        st.write('No text Composed')
     
 
 
