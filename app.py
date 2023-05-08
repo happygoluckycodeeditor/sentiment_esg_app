@@ -24,6 +24,10 @@ tokenizer, model = load_model()
 #Adding text files
 st.write('Enter the text you want to analyse in the text box:')
 
+@st.cache_data
+def cache_input_text(text):
+    return text
+
 text = st.text_area('Text for analysis:')
 submit_button = st.button('Submit')
 
