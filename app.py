@@ -33,7 +33,7 @@ submit_button = st.button('Submit')
 
 st.write('The text you have written is:', text )
 
-if submit_button:
+if submit_button or text:
     if text:
         #Run on ROBERTA
         encoded_text = tokenizer(text, return_tensors='pt')
