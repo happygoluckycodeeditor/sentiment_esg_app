@@ -25,7 +25,7 @@ tokenizer, model = load_model()
 #Adding text files
 st.write('Enter the text you want to analyse in the text box:')
 
-@st.cache_data(max_entries=3)
+@st.cache_data(ttl=500)
 def cache_input_text(text):
     return text
 
