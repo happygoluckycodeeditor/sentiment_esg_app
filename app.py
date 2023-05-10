@@ -3,6 +3,7 @@ import pandas as pd
 from transformers import AutoTokenizer
 from scipy.special import softmax
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud, STOPWORDS
 
 st.markdown('''
 # Sentiment Analysis Application
@@ -31,7 +32,8 @@ def cache_input_text(text):
 text = st.text_area('Text for analysis:')
 submit_button = st.button('Submit')
 
-st.write('The text you have written is:', text )
+st.write('The text you have written is:')
+st.write(text)
 
 if submit_button or text:
     if text:
@@ -87,6 +89,16 @@ if submit_button or text:
         
     else:
         st.write('No text Composed')
+
+    st.header('The Worcloud of your Text is as follows:')
+    if text:
+        stop_w = set(STOPWORDS)
+        wordcloud = WordCloud(stopwords = stop_w, width=800, height=800).generate(text)
+
+        #Displaying the image
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        st.pyplot(plt.gcf())
     
 
 
@@ -101,3 +113,7 @@ if file_csv:
     st.write(df.head())
 else:
     st.write('No file uploaded')
+
+
+st.subheader('App by Tanmay Bagwe')
+st.subheader(body='For any questions send an email at tanmay.bagwe.tb@gmail.com')
