@@ -25,7 +25,7 @@ tokenizer, model = load_model()
 #Adding text files
 st.write('Enter the text you want to analyse in the text box:')
 
-@st.cache_data
+@st.cache_data(max_entries=3)
 def cache_input_text(text):
     return text
 
@@ -100,6 +100,8 @@ if submit_button or text:
         plt.title('Wordcloud of the text')
         plt.axis("off")
         st.pyplot(plt.gcf())
+    else:
+        st.write('No Text Composed')
     
 
 
