@@ -97,6 +97,7 @@ if submit_button or text:
 
         #Displaying the image
         plt.imshow(wordcloud, interpolation='bilinear')
+        plt.title('Wordcloud of the text')
         plt.axis("off")
         st.pyplot(plt.gcf())
     
