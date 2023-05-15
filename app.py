@@ -4,11 +4,23 @@ from transformers import AutoTokenizer
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
+from PIL import Image
 
+st.set_page_config(initial_sidebar_state="auto")
 st.markdown('''
 # Sentiment Analysis Application and SDG Classifier
 This is my text analysis and sentiment app
 ''')
+
+#SideBar_Config
+st.sidebar.title('Sentiment Analysis and SDG Classifier')
+st.sidebar.caption('This app is made as a proof of concept for my upcoming master thesis. The app uses Modifiied BERT Models from Hugging face namely, roBERTa Sentiment and OSDG model for sentiment classification and SDG Text Classification')
+st.sidebar.caption('The App can detect text in upto 16 Sustainable Development Goals and is also able to tell what the sentiment of the text input.')
+
+image = Image.open('Favicon.png')
+st.sidebar.image(image)
+st.sidebar.subheader('For any feedback or question please contact me on my email at tanmay.bagwe.tb@gmail.com')
+st.sidebar.caption('Last updated 15th May,2023')
 
 #LoadingModel For analysis            
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -32,6 +44,7 @@ tokenizer2, model2 = load_model2()
 
 #Adding text files
 st.write('Enter the text you want to analyse in the text box:')
+st.write('このアプリは入力した文章のセンチメント分析（感情）とSDG分類を行うことができます')
 
 @st.cache_data(ttl=500)
 def cache_input_text(text):
