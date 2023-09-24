@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 
+MAX_LENGTH = 512 #For Truncation of the BERT Models
+
 st.set_page_config(initial_sidebar_state="auto")
 st.markdown('''
 # Sentiment Analysis Application and SDG Classifier
@@ -59,7 +61,7 @@ st.write(text)
 if submit_button or text:
     if text:
         #Run on ROBERTA
-        encoded_text = tokenizer(text, return_tensors='pt')
+        encoded_text = tokenizer(text, return_tensors='pt', max_length=MAX_LENGTH, truncation=True, padding='max_length')
         output = model(**encoded_text)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
@@ -84,7 +86,7 @@ if submit_button or text:
     st.header('Sentiment of your text on a graph:')
     if text:
         #Run on ROBERTA
-        encoded_text = tokenizer(text, return_tensors='pt')
+        encoded_text = tokenizer(text, return_tensors='pt', max_length=MAX_LENGTH, truncation=True, padding='max_length')
         output = model(**encoded_text)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
@@ -115,7 +117,7 @@ if submit_button or text:
     st.header('Which SDG is the Text talking about?')
     if text:
         #Run on SDG
-        encoded_text = tokenizer2(text, return_tensors='pt')
+        encoded_text = tokenizer2(text, return_tensors='pt', max_length=MAX_LENGTH, truncation=True, padding='max_length')
         output = model2(**encoded_text)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
